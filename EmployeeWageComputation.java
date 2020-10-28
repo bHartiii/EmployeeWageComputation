@@ -5,38 +5,41 @@ public class EmployeeWageComputation
 	static final int wagePerHour=20;
 	static final int fullDayHour=8;
 	static final int partTimeHour=4;
-	static float dailyWage;
+	static float dailyWage=0;
 	public String employeeAttendance()
 	{
 		Random random=new Random();
 	        int isPresent=random.nextInt(2);
-		if(isPresent==0){
-			EmployeeWageComputation.attendance="absent";
-		}
-		else{
-			EmployeeWageComputation.attendance="present";
+		switch(isPresent){
+			case 0:
+				attendance="absent";
+				break;
+			case 1:
+				attendance="present";
+				break;
 		}
 	        return attendance;
 	}
 	public String isPartTime(){
 		Random random=new Random();
 		int isPartTime=random.nextInt(2);
-		if(isPartTime==0){
-			EmployeeWageComputation.isPartTime="Yes";
-		}
-		else{
-			EmployeeWageComputation.isPartTime="No";
+		switch(isPartTime){
+			case 0:
+				EmployeeWageComputation.isPartTime="Yes";
+				break;
+			case 1:
+				EmployeeWageComputation.isPartTime="No";
+				break;
 		}
 		return EmployeeWageComputation.isPartTime;
 	}
 	public float dailyWageCalculation(){
-		float dailyWage=0;
 		if(attendance.equals("present")){
 			if(isPartTime.equals("Yes")){
-				dailyWage=wagePerHour*partTimeHour;
+				 dailyWage=wagePerHour*partTimeHour;
 			}
 			else{
-				dailyWage=wagePerHour*fullDayHour;
+				 dailyWage=wagePerHour*fullDayHour;
 			}
 		}
 		return dailyWage;
