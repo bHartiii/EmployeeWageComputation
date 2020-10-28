@@ -2,10 +2,13 @@ import java.util.*;
 public class EmployeeWageComputation
 {	static String attendance;
 	static String isPartTime;
-	static final int wagePerHour=20;
-	static final int fullDayHour=8;
-	static final int partTimeHour=4;
+	static final int WAGE_PER_HOURS=20;
+	static final int FULL_DAY_HOURS=8;
+	static final int PART_TIME_HOURS=4;
 	static float dailyWage=0;
+	static final int MAX_WORKING_DAYS=20;
+	static float monthlyWage=0;
+	static int totalWorkingDays=0;
 	public String employeeAttendance()
 	{
 		Random random=new Random();
@@ -36,10 +39,10 @@ public class EmployeeWageComputation
 	public float dailyWageCalculation(){
 		if(attendance.equals("present")){
 			if(isPartTime.equals("Yes")){
-				 dailyWage=wagePerHour*partTimeHour;
+				 dailyWage=WAGE_PER_HOURS*PART_TIME_HOURS;
 			}
 			else{
-				 dailyWage=wagePerHour*fullDayHour;
+				 dailyWage=WAGE_PER_HOURS*FULL_DAY_HOURS;
 			}
 		}
 		return dailyWage;
@@ -48,9 +51,13 @@ public class EmployeeWageComputation
 	public static void main(String args[])
     	{
 		EmployeeWageComputation empWage=new EmployeeWageComputation();
-		empWage.employeeAttendance();
-		empWage.isPartTime();
-		dailyWage=empWage.dailyWageCalculation();
-   		System.out.println("Daily Wage - "+dailyWage );
+		while(totalWorkingDays!=MAX_WORKING_DAYS){
+			empWage.employeeAttendance();
+			empWage.isPartTime();
+			dailyWage=empWage.dailyWageCalculation();
+			monthlyWage=monthlyWage+dailyWage;
+			totalWorkingDays++;
+		}
+   		System.out.println("Monthly Wage - "+monthlyWage );
 	}
 }
