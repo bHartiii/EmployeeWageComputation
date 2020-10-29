@@ -2,21 +2,27 @@ import java.util.*;
 public class EmployeeWageComputation
 {       String attendance;
         String isPartTime;
-        String employeeName;
+        String companyName;
         float dailyWage=0;
         float monthlyWage=0;
         int totalWorkingDays=0;
         int totalWorkingHours=0;
+        int workingHours=0;
+        int WAGE_PER_HOURS;
+        int FULL_DAY_HOURS;
+        int PART_TIME_HOURS;
+        int MAX_WORKING_HOURS;
+      	int MAX_WORKING_DAYS;
 
-        static final int WAGE_PER_HOURS=20;
-        static final int FULL_DAY_HOURS=8;
-        static final int PART_TIME_HOURS=4;
-        static final int MAX_WORKING_HOURS=160;
-        static final int MAX_WORKING_DAYS=20;
-
-        public EmployeeWageComputation(String employeeName){
-                this.employeeName=employeeName;
+        public EmployeeWageComputation(String companyName,int wage,int fullDayHours,int partTimeHours,int maxWorkingHours,int maxWorkingDays){
+                this.companyName=companyName;
+		this.WAGE_PER_HOURS=wage;
+                this.FULL_DAY_HOURS=fullDayHours;
+                this.PART_TIME_HOURS=partTimeHours;
+                this.MAX_WORKING_HOURS=maxWorkingHours;
+                this.MAX_WORKING_DAYS=maxWorkingDays;
         }
+
         public String employeeAttendance()
         {
                 Random random=new Random();
@@ -31,29 +37,23 @@ public class EmployeeWageComputation
                 }
                 return attendance;
         }
-        public String isPartTime(){
+         public int getWorkingHours(){
                 Random random=new Random();
                 int isPartTime=random.nextInt(2);
                 switch(isPartTime){
                         case 0:
-                                this.isPartTime="Yes";
+                                workingHours=PART_TIME_HOURS;
                                 break;
                         case 1:
-                                this.isPartTime="No";
+                                workingHours=FULL_DAY_HOURS;
                                 break;
                 }
-                return this.isPartTime;
+                return workingHours;
         }
         public float dailyWageCalculation(){
                 if(attendance.equals("present")){
-                        if(isPartTime.equals("Yes")){
-                                dailyWage=WAGE_PER_HOURS*PART_TIME_HOURS;
-                                totalWorkingHours=totalWorkingHours+PART_TIME_HOURS;
-                        }
-                        else{
-                                 dailyWage=WAGE_PER_HOURS*FULL_DAY_HOURS;
-                                 totalWorkingHours=totalWorkingHours+FULL_DAY_HOURS;
-                        }
+                     dailyWage=WAGE_PER_HOURS*workingHours;
+                     totalWorkingHours=totalWorkingHours+workingHours;
                 }
                 else{
                         dailyWage=0;
@@ -63,25 +63,20 @@ public class EmployeeWageComputation
         public void monthlyWageCalculation(){
                 while(totalWorkingDays!=MAX_WORKING_DAYS && totalWorkingHours!=MAX_WORKING_HOURS){
                         employeeAttendance();
-                        isPartTime();
+                        getWorkingHours();
                         dailyWage=dailyWageCalculation();
                         monthlyWage=monthlyWage+dailyWage;
                         totalWorkingDays++;
                 }
-                System.out.println("Employee Name - "+employeeName);
+                System.out.println("Company Name - "+companyName);
                 System.out.println("Total Working Days - "+totalWorkingDays);
                 System.out.println("Total Working Hours - "+totalWorkingHours);
                 System.out.println("Monthly Wage - "+monthlyWage );
 
         }
-
         public static void main(String args[])
         {
-                EmployeeWageComputation emp1=new EmployeeWageComputation("employee1");
-                EmployeeWageComputation emp2=new EmployeeWageComputation("employee2");
-                emp1.monthlyWageCalculation();
-                emp2.monthlyWageCalculation();
+                EmployeeWageComputation dMart=new EmployeeWageComputation("DMart",30,16,8,320,20);
+                dMart.monthlyWageCalculation();
         }
 }
-
-
