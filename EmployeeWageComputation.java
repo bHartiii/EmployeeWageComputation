@@ -7,16 +7,24 @@ public class EmployeeWageComputation
         float monthlyWage=0;
         int totalWorkingDays=0;
         int totalWorkingHours=0;
-
-        static final int WAGE_PER_HOURS=20;
-        static final int FULL_DAY_HOURS=8;
-        static final int PART_TIME_HOURS=4;
-        static final int MAX_WORKING_HOURS=160;
-        static final int MAX_WORKING_DAYS=20;
+        int workingHours=0;
+        static int WAGE_PER_HOURS;
+        static int FULL_DAY_HOURS;
+        static int PART_TIME_HOURS;
+        static int MAX_WORKING_HOURS;
+        static int MAX_WORKING_DAYS;
 
         public EmployeeWageComputation(String employeeName){
                 this.employeeName=employeeName;
         }
+        static void setValues(int wage,int fullDayHours,int partTimeHours,int maxWorkingHours,int maxWorkingDays){
+                WAGE_PER_HOURS=wage;
+                FULL_DAY_HOURS=fullDayHours;
+                PART_TIME_HOURS=partTimeHours;
+                MAX_WORKING_HOURS=maxWorkingHours;
+                MAX_WORKING_DAYS=maxWorkingDays;
+        }
+
         public String employeeAttendance()
         {
                 Random random=new Random();
@@ -31,29 +39,23 @@ public class EmployeeWageComputation
                 }
                 return attendance;
         }
-        public String isPartTime(){
+         public int getWorkingHours(){
                 Random random=new Random();
                 int isPartTime=random.nextInt(2);
                 switch(isPartTime){
                         case 0:
-                                this.isPartTime="Yes";
+                                workingHours=PART_TIME_HOURS;
                                 break;
                         case 1:
-                                this.isPartTime="No";
+                                workingHours=FULL_DAY_HOURS;
                                 break;
                 }
-                return this.isPartTime;
+                return workingHours;
         }
         public float dailyWageCalculation(){
                 if(attendance.equals("present")){
-                        if(isPartTime.equals("Yes")){
-                                dailyWage=WAGE_PER_HOURS*PART_TIME_HOURS;
-                                totalWorkingHours=totalWorkingHours+PART_TIME_HOURS;
-                        }
-                        else{
-                                 dailyWage=WAGE_PER_HOURS*FULL_DAY_HOURS;
-                                 totalWorkingHours=totalWorkingHours+FULL_DAY_HOURS;
-                        }
+                     dailyWage=WAGE_PER_HOURS*workingHours;
+                     totalWorkingHours=totalWorkingHours+workingHours;
                 }
                 else{
                         dailyWage=0;
@@ -63,7 +65,7 @@ public class EmployeeWageComputation
         public void monthlyWageCalculation(){
                 while(totalWorkingDays!=MAX_WORKING_DAYS && totalWorkingHours!=MAX_WORKING_HOURS){
                         employeeAttendance();
-                        isPartTime();
+                        getWorkingHours();
                         dailyWage=dailyWageCalculation();
                         monthlyWage=monthlyWage+dailyWage;
                         totalWorkingDays++;
@@ -74,14 +76,10 @@ public class EmployeeWageComputation
                 System.out.println("Monthly Wage - "+monthlyWage );
 
         }
-
         public static void main(String args[])
         {
                 EmployeeWageComputation emp1=new EmployeeWageComputation("employee1");
-                EmployeeWageComputation emp2=new EmployeeWageComputation("employee2");
+                EmployeeWageComputation.setValues(30,16,8,320,20);
                 emp1.monthlyWageCalculation();
-                emp2.monthlyWageCalculation();
         }
 }
-
-
