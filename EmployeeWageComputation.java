@@ -2,16 +2,33 @@ import java.util.*;
 public class EmployeeWageComputation
 {       String attendance;
         String isPartTime;
-	String empName;
+        String companyName;
         float dailyWage=0;
         float monthlyWage=0;
         int totalWorkingDays=0;
         int totalWorkingHours=0;
         int workingHours=0;
+<<<<<<< HEAD
 
 	public EmployeeWageComputation(String empName){
 		this.empName=empName;
 	}
+=======
+        int WAGE_PER_HOURS;
+        int FULL_DAY_HOURS;
+        int PART_TIME_HOURS;
+        int MAX_WORKING_HOURS;
+        int MAX_WORKING_DAYS;
+
+        public EmployeeWageComputation(String companyName,int wage,int fullDayHours,int partTimeHours,int maxWorkingHours,int maxWorkingDays){
+                this.companyName=companyName;
+                this.WAGE_PER_HOURS=wage;
+                this.FULL_DAY_HOURS=fullDayHours;
+                this.PART_TIME_HOURS=partTimeHours;
+                this.MAX_WORKING_HOURS=maxWorkingHours;
+                this.MAX_WORKING_DAYS=maxWorkingDays;
+        }
+>>>>>>> master
 
         public String employeeAttendance()
         {
@@ -27,22 +44,22 @@ public class EmployeeWageComputation
                 }
                 return attendance;
         }
-         public int getWorkingHours(int partTimeHours,int fullDayHours){
+         public int getWorkingHours(){
                 Random random=new Random();
                 int isPartTime=random.nextInt(2);
                 switch(isPartTime){
                         case 0:
-                                workingHours=partTimeHours;
+                                workingHours=PART_TIME_HOURS;
                                 break;
                         case 1:
-                                workingHours=fullDayHours;
+                                workingHours=FULL_DAY_HOURS;
                                 break;
                 }
                 return workingHours;
         }
-        public float dailyWageCalculation(int wagePerHour){
+        public float dailyWageCalculation(){
                 if(attendance.equals("present")){
-                     dailyWage=wagePerHour*workingHours;
+                     dailyWage=WAGE_PER_HOURS*workingHours;
                      totalWorkingHours=totalWorkingHours+workingHours;
                 }
                 else{
@@ -50,19 +67,26 @@ public class EmployeeWageComputation
                 }
                 return dailyWage;
         }
-        public void monthlyWageCalculation(CompanyBuilder company){
-                while(totalWorkingDays!=company.maxWorkingDays && totalWorkingHours!=company.maxWorkingHours){
+        public void monthlyWageCalculation(){
+                while(totalWorkingDays!=MAX_WORKING_DAYS && totalWorkingHours!=MAX_WORKING_HOURS){
                         employeeAttendance();
-                        getWorkingHours(company.partTimeHours,company.fullDayHours);
-                        dailyWage=dailyWageCalculation(company.wagePerHour);
+                        getWorkingHours();
+                        dailyWage=dailyWageCalculation();
                         monthlyWage=monthlyWage+dailyWage;
                         totalWorkingDays++;
                 }
-                System.out.println("Company Name - "+company.companyName);
+                System.out.println("Company Name - "+companyName);
                 System.out.println("Total Working Days - "+totalWorkingDays);
                 System.out.println("Total Working Hours - "+totalWorkingHours);
                 System.out.println("Monthly Wage - "+monthlyWage );
 
         }
+<<<<<<< HEAD
+=======
+        public static void main(String args[])
+        {
+                EmployeeWageComputation dMart=new EmployeeWageComputation("DMart",30,16,8,320,20);
+                dMart.monthlyWageCalculation();
+        }
+>>>>>>> master
 }
-
