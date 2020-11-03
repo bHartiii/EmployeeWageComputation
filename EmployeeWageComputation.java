@@ -5,10 +5,7 @@ public class EmployeeWageComputation
 	String empName;
         float dailyWage=0;
         float monthlyWage=0;
-        int totalWorkingDays=0;
-        int totalWorkingHours=0;
         int workingHours=0;
-
 	public EmployeeWageComputation(String empName){
 		this.empName=empName;
 	}
@@ -42,26 +39,31 @@ public class EmployeeWageComputation
         }
         public float dailyWageCalculation(int wagePerHour){
                 if(attendance.equals("present")){
-                     dailyWage=wagePerHour*workingHours;
-                     totalWorkingHours=totalWorkingHours+workingHours;
-                }
+                 	dailyWage=wagePerHour*workingHours;
+		}
                 else{
                         dailyWage=0;
                 }
                 return dailyWage;
         }
-        public void monthlyWageCalculation(CompanyBuilder company){
-                while(totalWorkingDays!=company.maxWorkingDays && totalWorkingHours!=company.maxWorkingHours){
-                        employeeAttendance();
-                        getWorkingHours(company.partTimeHours,company.fullDayHours);
-                        dailyWage=dailyWageCalculation(company.wagePerHour);
-                        monthlyWage=monthlyWage+dailyWage;
-                        totalWorkingDays++;
-                }
-                System.out.println("Company Name - "+company.companyName);
-                System.out.println("Total Working Days - "+totalWorkingDays);
-                System.out.println("Total Working Hours - "+totalWorkingHours);
-                System.out.println("Monthly Wage - "+monthlyWage );
-
+        public void monthlyWageCalculation(CompanyBuilder[] companies){
+		int sum=0;int temp=0;
+		System.out.println("Employee - "+empName);
+		for(int i=0;i<=2;i++){
+			int totalWorkingDays=0;
+			int totalWorkingHours=0;
+			while(totalWorkingDays!=companies[i].maxWorkingDays && totalWorkingHours!=companies[i].maxWorkingHours){
+                        	employeeAttendance();
+                        	getWorkingHours(companies[i].partTimeHours,companies[i].fullDayHours);
+                        	dailyWage=dailyWageCalculation(companies[i].wagePerHour);
+                        	monthlyWage=monthlyWage+dailyWage;
+                        	totalWorkingDays++;
+				totalWorkingHours=totalWorkingHours+workingHours;
+                	}
+                	System.out.println("Company Name - "+companies[i].companyName);
+                	System.out.println("Total Working Days - "+totalWorkingDays);
+                	System.out.println("Total Working Hours - "+totalWorkingHours);
+                	System.out.println("Monthly Wage - "+monthlyWage );
+		}
         }
 }
