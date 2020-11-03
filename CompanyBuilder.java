@@ -7,7 +7,8 @@ public class CompanyBuilder{
 	int maxWorkingHours;
 	int maxWorkingDays;
 	public CompanyBuilder(String companyName,int wagePerHour,int fullDayHours,int partTimeHours,int maxWorkingHours,int maxWorkingDays) {
-    		this.wagePerHour=wagePerHour;
+    		this.companyName=companyName;
+		this.wagePerHour=wagePerHour;
     		this.wagePerHour=wagePerHour;
     		this.fullDayHours=fullDayHours;
     		this.partTimeHours=partTimeHours;
@@ -15,11 +16,11 @@ public class CompanyBuilder{
     		this.maxWorkingDays=maxWorkingDays;
     	}
 	public static void main(String args[]){
-		CompanyBuilder company1=new CompanyBuilder("DMart",20,8,4,160,20);
-		CompanyBuilder company2=new CompanyBuilder("Reliance",10,8,4,160,20);
-
-		new EmployeeWageComputation("employee1").monthlyWageCalculation(company1);
-		new EmployeeWageComputation("employee2").monthlyWageCalculation(company2);
+		CompanyBuilder[] companies=new CompanyBuilder[3];
+		companies[0]=new CompanyBuilder("DMart",10,10,4,200,20);
+		companies[1]=new CompanyBuilder("Reliance",20,16,8,400,25);
+		companies[2]=new CompanyBuilder("Bridgelabz",30,20,10,560,28);
+		new EmployeeWageComputation("employee1").monthlyWageCalculation(companies);
 
 	}
 }
