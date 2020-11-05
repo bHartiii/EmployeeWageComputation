@@ -1,5 +1,6 @@
 import java.util.*;
-public class CompanyBuilder{
+public class CompanyBuilder
+{
 	String companyName;
 	int wagePerHour;
 	int fullDayHours;

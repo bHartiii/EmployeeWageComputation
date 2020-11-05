@@ -1,5 +1,5 @@
 import java.util.*;
-public class EmployeeWageComputation
+public class EmployeeWageComputation implements WageCalculation
 {       String attendance;
         String isPartTime;
 	String empName;
@@ -47,7 +47,6 @@ public class EmployeeWageComputation
                 return dailyWage;
         }
         public void monthlyWageCalculation(CompanyBuilder[] companies){
-		int sum=0;int temp=0;
 		System.out.println("Employee - "+empName);
 		for(int i=0;i<=2;i++){
 			int totalWorkingDays=0;
