@@ -17,11 +17,11 @@ public class CompanyBuilder
     		this.maxWorkingDays=maxWorkingDays;
     	}
 	public static void main(String args[]){
-		CompanyBuilder[] companies=new CompanyBuilder[3];
-		companies[0]=new CompanyBuilder("DMart",10,10,4,200,20);
-		companies[1]=new CompanyBuilder("Reliance",20,16,8,400,25);
-		companies[2]=new CompanyBuilder("Bridgelabz",30,20,10,560,28);
-		new EmployeeWageComputation("employee1").monthlyWageCalculation(companies);
+		ArrayList<CompanyBuilder> companiesList = new ArrayList<CompanyBuilder>();
+		companiesList.add(new CompanyBuilder("DMart",10,10,4,200,20));
+		companiesList.add(new CompanyBuilder("Reliance",20,16,8,400,25));
+		companiesList.add(new CompanyBuilder("Bridgelabz",30,20,10,560,28));
+		new EmployeeWageComputation("employee1").monthlyWageCalculation(companiesList);
 
 	}
 }

@@ -46,20 +46,25 @@ public class EmployeeWageComputation implements WageCalculation
                 }
                 return dailyWage;
         }
-        public void monthlyWageCalculation(CompanyBuilder[] companies){
+        public void monthlyWageCalculation(ArrayList companiesList){
 		System.out.println("Employee - "+empName);
-		for(int i=0;i<=2;i++){
+		CompanyBuilder company;
+
+		Iterator<CompanyBuilder> iterator=companiesList.iterator();
+                while(iterator.hasNext()) {
+			company=iterator.next();
+
 			int totalWorkingDays=0;
 			int totalWorkingHours=0;
-			while(totalWorkingDays!=companies[i].maxWorkingDays && totalWorkingHours!=companies[i].maxWorkingHours){
+			while(totalWorkingDays!=company.maxWorkingDays && totalWorkingHours!=company.maxWorkingHours){
                         	employeeAttendance();
-                        	getWorkingHours(companies[i].partTimeHours,companies[i].fullDayHours);
-                        	dailyWage=dailyWageCalculation(companies[i].wagePerHour);
+                        	getWorkingHours(company.partTimeHours,company.fullDayHours);
+                        	dailyWage=dailyWageCalculation(company.wagePerHour);
                         	monthlyWage=monthlyWage+dailyWage;
                         	totalWorkingDays++;
 				totalWorkingHours=totalWorkingHours+workingHours;
                 	}
-                	System.out.println("Company Name - "+companies[i].companyName);
+                	System.out.println("Company Name - "+company.companyName);
                 	System.out.println("Total Working Days - "+totalWorkingDays);
                 	System.out.println("Total Working Hours - "+totalWorkingHours);
                 	System.out.println("Monthly Wage - "+monthlyWage );
